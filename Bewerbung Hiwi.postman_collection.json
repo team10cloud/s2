@@ -1,0 +1,444 @@
+{
+	"info": {
+		"_postman_id": "9654eb4e-7539-4eff-b3eb-d39eb4b4c5f6",
+		"name": "Bewerbung Hiwi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Process",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "upload",
+							"type": "file",
+							"src": "/Users/Alli/Desktop/process2.bpmn"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/deployment/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"deployment",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start Process",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"variables\": {\n    \"vorname\" : {\n        \"value\" : \"Eugen\",\n        \"type\": \"String\"\n    },\n    \"nachname\" : {\n      \"value\" : \"Eis\",\n      \"type\": \"String\"\n    }\n  }\n\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/process-definition/key/BewerbungHiwi/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"process-definition",
+						"key",
+						"BewerbungHiwi",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/task?processDefinitionKey=BewerbungHiwi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task"
+					],
+					"query": [
+						{
+							"key": "processDefinitionKey",
+							"value": "BewerbungHiwi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Bedarf überprüfen: Ja",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Entscheidung\": {\"value\": \"True\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/1399bc63-3e8b-11ea-9aa1-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"1399bc63-3e8b-11ea-9aa1-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Bedarf überprüfen: Nein",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Entscheidung\": {\"value\": \"False\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/d1955a9e-3dc1-11ea-9ec3-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"d1955a9e-3dc1-11ea-9ec3-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Bedarf: Nicht qualifiziert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Grund\": {\"value\": \"nicht qualifiziert\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/12681823-3d24-11ea-a0ca-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"12681823-3d24-11ea-a0ca-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Bedarf: Bedarf gedeckt",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Grund\": {\"value\": \"Bedarf gedeckt\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/f42e7897-3dc1-11ea-9ec3-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"f42e7897-3dc1-11ea-9ec3-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Entscheidung treffen: Ja",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Antwort\": {\"value\": \"True\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/b20e290e-3e8b-11ea-9aa1-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"b20e290e-3e8b-11ea-9aa1-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Entscheidung treffen: Nein",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Antwort\": {\"value\": \"False\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/bec764ca-37b8-11ea-8a3d-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"bec764ca-37b8-11ea-8a3d-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Unterlagen ausfüllen",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/a33344d4-3dc1-11ea-9ec3-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"a33344d4-3dc1-11ea-9ec3-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Vollständigkeit: Ja",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Vollstandigkeit\": {\"value\": \"Ja\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/b284c728-3dc1-11ea-9ec3-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"b284c728-3dc1-11ea-9ec3-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Vollständigkeit: Nein",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Vollstandigkeit\": {\"value\": \"False\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/47dca302-1398-11ea-8354-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"47dca302-1398-11ea-8354-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Fragwürdig: Ja",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Fragwurdig\": {\"value\": \"Ja\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/50bcb506-3d25-11ea-a0ca-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"50bcb506-3d25-11ea-a0ca-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Task Fragwürdig: Nein",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"variables\":\n    {\"Fragwurdig\": {\"value\": \"False\"}\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/engine-rest/task/88532d33-3d28-11ea-a0ca-0242ac110002/complete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"task",
+						"88532d33-3d28-11ea-a0ca-0242ac110002",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
